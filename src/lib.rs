@@ -139,7 +139,9 @@ where
         write!(
             f,
             "\"ts\":\"{}\"",
-            time::OffsetDateTime::now_utc().format(&time::format_description::well_known::Rfc3339).unwrap()
+            time::OffsetDateTime::now_utc()
+                .format(&time::format_description::well_known::Rfc3339)
+                .unwrap()
         )?;
     }
     #[cfg(not(feature = "iso-timestamps"))]
@@ -196,7 +198,7 @@ mod tests {
         let mut buf = Vec::new();
         write(&mut buf, &record)?;
         let output = std::str::from_utf8(&buf)?;
-        assert!(serde_json::from_str::<serde_json::Value>(&output).is_ok());
+        assert!(serde_json::from_str::<serde_json::Value>(output).is_ok());
         Ok(())
     }
 
