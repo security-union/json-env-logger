@@ -139,7 +139,9 @@ where
         write!(
             f,
             "\"ts\":\"{}\"",
-            time::OffsetDateTime::now_utc().format(&time::format_description::well_known::Rfc3339).unwrap()
+            time::OffsetDateTime::now_utc()
+                .format(&time::format_description::well_known::Rfc3339)
+                .unwrap()
         )?;
     }
     #[cfg(not(feature = "iso-timestamps"))]
